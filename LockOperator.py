@@ -31,4 +31,4 @@ class LockOperator:
         GPIO.output(self.__LOCK_PIN, GPIO.LOW)
 
     def is_lock_open(self):
-        return GPIO.input(self.__LOCK_CHECK_IN) == self.LOW
+        return GPIO.input(self.__LOCK_CHECK_IN) != self.LOW
