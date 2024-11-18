@@ -6,19 +6,6 @@ reader = KeypadReader()
 matcher = PasswordMatcher()
 operator = LockOperator()
 
-
-def printInfo(info):
-    print(info.pincode + " " + info.order_item)
-    print(info.open_status)
-    print(info.box_id)
-    print()
-
-
-printInfo(matcher.get_order_info("25252"))
-printInfo(matcher.get_order_info("3064D"))
-printInfo(matcher.get_order_info("B1198"))
-
-"""
 current_password = ""
 maxlen = matcher.PASSWORD_LENGTH
 status = False
@@ -32,8 +19,9 @@ while not status:
                 status = True
                 print('The password is correct!')
                 # operator.unlock_door()
+            elif (order_data := matcher.get_order_info(current_password)) is not None:
+                print('an order password is entered for: ')
+                print(order_data.order_item)
             else:
                 print('Wrong password')
                 current_password = ""
-
-"""
