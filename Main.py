@@ -26,8 +26,10 @@ while not status:
                 status = True
                 print('The password is correct!')
                 #operator.unlock_door()
+
+                print(matcher.is_unique("##101"))
+                print(matcher.is_unique("25252"))
+                print(matcher.is_unique("11111"))
             else:
                 print('Wrong password')
                 current_password = ""
-
-                print("new password: " + matcher.generate_password())

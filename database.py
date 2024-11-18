@@ -26,30 +26,6 @@ class PasswordMatcher:
             print(f"Error: {err}")
             return None
 
-    def is_owner_password(self, password):
-        result = False
-        cursor = None
-        try:
-            cursor = self.connection.cursor()
-            query = """
-            SELECT Owner_passcode
-            FROM Mailboxes
-            WHERE Box_id = {}
-            """.format(self.__BOX_ID)
-
-            cursor.execute(query)
-            results = cursor.fetchone()
-
-            if results is not None:
-                result = results[0] == password
-
-        except mysql.connector.Error as err:
-            print(f"Query Error: {err}")
-        finally:
-            if cursor:
-                cursor.close()
-            return result
-
     def init_order_information(self, password, order_item, box_id):
         cursor = self.connection.cursor()
         query = """
@@ -58,20 +34,6 @@ class PasswordMatcher:
         """.format(self.__BOX_ID)
         cursor.execute(query)
         cursor.close()
-
-    def is_unique(self, password):
-        cursor = self.connection.cursor()
-        query = """
-        SELECT Pincode
-        FROM Passwords
-        WHERE Box_id != {}  AND Pincode = password 
-        """.format(self.__BOX_ID)
-        cursor.execute(query)
-        results = cursor.fetchone
-        if (results == None):
-            return True
-        else:
-            return False
 
     def paired_order(self, password):
         cursor = self.connection.cursor()

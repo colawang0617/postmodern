@@ -48,9 +48,17 @@ class PasswordMatcher:
 
         return True if result else False
 
-    def generate_password(self):
+    def __generate_password(self):
         password = ''
         for i in range(self.PASSWORD_LENGTH):
             next_symbol_idx = random.randint(0, len(self.__KEYPAD_CHARACTERS) - 1)
             password += self.__KEYPAD_CHARACTERS[next_symbol_idx]
         return password
+
+    def is_unique(self, password):
+        result = self.__execute_query(query="""
+            SELECT Pincode
+            FROM Passwords
+            WHERE Box_id = "{}" AND Pincode = "{}" 
+            """.format(self.__BOX_ID, password))
+        return not self.is_owner_password(password) and not result
