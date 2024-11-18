@@ -84,5 +84,5 @@ class PasswordMatcher:
             """.format(self.__BOX_ID, password))
         if not result:
             return None
-        return OrderData(result[0], result[1], result[2], result[3])
+        return OrderData(result[0])
 
