@@ -17,6 +17,9 @@ def printPassword(password, current_len):
     print()
 
 
+matcher.add_new_order("phone charger")
+
+"""
 while not status:
     if not ((n := reader.read()) is None):
         current_password += n
@@ -25,11 +28,9 @@ while not status:
             if matcher.is_owner_password(current_password):
                 status = True
                 print('The password is correct!')
-                #operator.unlock_door()
-
-                print(matcher.is_unique("##101"))
-                print(matcher.is_unique("25252"))
-                print(matcher.is_unique("11111"))
+                # operator.unlock_door()
             else:
                 print('Wrong password')
                 current_password = ""
+
+"""

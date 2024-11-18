@@ -48,6 +48,14 @@ class PasswordMatcher:
 
         return True if result else False
 
+    def __is_unique(self, password):
+        result = self.__execute_query(query="""
+            SELECT Pincode
+            FROM Passwords
+            WHERE Box_id = "{}" AND Pincode = "{}" 
+            """.format(self.__BOX_ID, password))
+        return not self.is_owner_password(password) and not result
+
     def __generate_password(self):
         password = ''
         for i in range(self.PASSWORD_LENGTH):
@@ -55,10 +63,15 @@ class PasswordMatcher:
             password += self.__KEYPAD_CHARACTERS[next_symbol_idx]
         return password
 
-    def is_unique(self, password):
-        result = self.__execute_query(query="""
-            SELECT Pincode
-            FROM Passwords
-            WHERE Box_id = "{}" AND Pincode = "{}" 
-            """.format(self.__BOX_ID, password))
-        return not self.is_owner_password(password) and not result
+    def __generate_unique_password(self):
+        password = self.__generate_password()
+        while not self.__is_unique(password):
+            password = self.__generate_password()
+        return password
+
+    def add_new_order(self, order_item):
+        self.__execute_query(query="""
+            INSERT INTO Passwords
+            Values("{}", "{}", True, "{}");
+            """.format(self.__generate_unique_password(), order_item, self.__BOX_ID))
+

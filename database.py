@@ -26,15 +26,6 @@ class PasswordMatcher:
             print(f"Error: {err}")
             return None
 
-    def init_order_information(self, password, order_item, box_id):
-        cursor = self.connection.cursor()
-        query = """
-        INSERT INTO Passwords
-        Values(password,order_item,True,box_id);
-        """.format(self.__BOX_ID)
-        cursor.execute(query)
-        cursor.close()
-
     def paired_order(self, password):
         cursor = self.connection.cursor()
         query = """
