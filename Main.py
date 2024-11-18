@@ -6,10 +6,14 @@ reader = KeypadReader()
 matcher = PasswordMatcher()
 operator = LockOperator()
 
-print(matcher.get_order_info("##101"))
-print(matcher.get_order_info("25252"))
-print(matcher.get_order_info("3064D"))
-print(matcher.get_order_info("B1198"))
+
+def printInfo(info):
+    print(info.pincode + " " + info.order_item + " " + info.order_status + " " + info.box_id)
+
+
+printInfo(matcher.get_order_info("25252"))
+printInfo(matcher.get_order_info("3064D"))
+printInfo(matcher.get_order_info("B1198"))
 
 """
 current_password = ""
