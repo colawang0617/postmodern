@@ -1,5 +1,7 @@
 import mysql.connector
 import os
+import random
+from OrderData import OrderData
 
 
 class PasswordMatcher:
@@ -9,9 +11,9 @@ class PasswordMatcher:
     __DATABASE = os.environ.get("DATABASE_NAME")
     __BOX_ID = os.environ.get("BOX_ID")
 
-    connection = None
-
+    __KEYPAD_CHARACTERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D']
     PASSWORD_LENGTH = 5
+    connection = None
 
     def __init__(self):
         self.connection = self.__establish_connection()
@@ -25,26 +27,62 @@ class PasswordMatcher:
             print(f"Error: {err}")
             return None
 
-    def is_owner_password(self, password):
-        result = False
-        cursor = None
+    def __execute_query(self, query):
+        result = None
+        cursor = self.connection.cursor()
         try:
-            cursor = self.connection.cursor()
-            query = """
-            SELECT Owner_passcode
-            FROM Mailboxes
-            WHERE Box_id = {}
-            """.format(self.__BOX_ID)
-
             cursor.execute(query)
-            results = cursor.fetchone()
-
-            if results is not None:
-                result = results[0] == password
-
+            result = cursor.fetchall()
         except mysql.connector.Error as err:
             print(f"Query Error: {err}")
         finally:
             if cursor:
                 cursor.close()
             return result
+
+    def is_owner_password(self, password):
+        result = self.__execute_query(query="""
+            SELECT Owner_passcode
+            FROM Mailboxes
+            WHERE (Box_id = "{}" AND Owner_passcode = "{}") 
+            """.format(self.__BOX_ID, password))
+
+        return True if result else False
+
+    def __is_unique(self, password):
+        result = self.__execute_query(query="""
+            SELECT Pincode
+            FROM Passwords
+            WHERE Box_id = "{}" AND Pincode = "{}" 
+            """.format(self.__BOX_ID, password))
+        return not self.is_owner_password(password) and not result
+
+    def __generate_password(self):
+        password = ''
+        for i in range(self.PASSWORD_LENGTH):
+            next_symbol_idx = random.randint(0, len(self.__KEYPAD_CHARACTERS) - 1)
+            password += self.__KEYPAD_CHARACTERS[next_symbol_idx]
+        return password
+
+    def __generate_unique_password(self):
+        password = self.__generate_password()
+        while not self.__is_unique(password):
+            password = self.__generate_password()
+        return password
+
+    def add_new_order(self, order_item):
+        self.__execute_query(query="""
+            INSERT INTO Passwords
+            Values("{}", "{}", False, "{}");
+            """.format(self.__generate_unique_password(), order_item, self.__BOX_ID))
+        self.connection.commit()
+
+    def get_order_info(self, password):
+        result = self.__execute_query(query="""
+            SELECT * FROM Passwords
+            WHERE Box_id = "{}" AND Pincode = "{}" 
+            """.format(self.__BOX_ID, password))
+        if not result:
+            return None
+        return OrderData(result[0][0], result[0][1], result[0][2], result[0][3])
+
