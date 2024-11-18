@@ -22,6 +22,7 @@ while not status:
             elif (order_data := matcher.get_order_info(current_password)) is not None:
                 print('an order password is entered for: ')
                 print(order_data.order_item)
+                current_password = ""
             else:
                 print('Wrong password')
                 current_password = ""
