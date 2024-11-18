@@ -46,7 +46,7 @@ class PasswordMatcher:
             WHERE (Box_id = "{}" AND Owner_passcode = "{}") 
             """.format(self.__BOX_ID, password))
 
-        return result is not None
+        return True if result else False
 
     def generate_password(self):
         password = ''
