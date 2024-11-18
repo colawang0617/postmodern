@@ -8,7 +8,7 @@ operator = LockOperator()
 
 
 def printInfo(info):
-    print(info.pincode + " " + info.order_item + " " + info.order_status + " " + info.box_id)
+    print(info.pincode + " " + info.order_item + " " + info.open_status + " " + info.box_id)
 
 
 printInfo(matcher.get_order_info("25252"))
