@@ -19,9 +19,6 @@ def printPassword(password, current_len):
 
 while not status:
     if not ((n := reader.read()) is None):
-        #if operator.is_lock_open(): print("the lock is open")
-        #else: print("the lock is closed")
-
         current_password += n
         print(current_password)
         if len(current_password) == maxlen:
@@ -32,3 +29,5 @@ while not status:
             else:
                 print('Wrong password')
                 current_password = ""
+
+                print("new password: " + matcher.generate_password())

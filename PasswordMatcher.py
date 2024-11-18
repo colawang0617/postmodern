@@ -43,12 +43,12 @@ class PasswordMatcher:
         result = self.__execute_query(query="""
             SELECT Owner_passcode
             FROM Mailboxes
-            WHERE (Box_id = {} AND Pincode = {}) 
+            WHERE (Box_id = {} AND Owner_passcode = {}) 
             """.format(self.__BOX_ID, password))
 
         return result is not None
 
-    def __generate_password(self):
+    def generate_password(self):
         password = ''
         for i in range(self.PASSWORD_LENGTH):
             next_symbol_idx = random.randint(0, len(self.__KEYPAD_CHARACTERS))
