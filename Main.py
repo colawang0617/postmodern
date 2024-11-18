@@ -17,7 +17,8 @@ def printPassword(password, current_len):
     print()
 
 
-matcher.add_new_order("phone charger")
+# matcher.add_new_order("phone charger")
+matcher.list_items()
 
 """
 while not status:

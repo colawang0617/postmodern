@@ -75,3 +75,7 @@ class PasswordMatcher:
             Values("{}", "{}", True, "{}");
             """.format(self.__generate_unique_password(), order_item, self.__BOX_ID))
 
+    def list_items(self):
+        result = self.__execute_query("SELECT * FROM Passwords")
+        print(result)
+
