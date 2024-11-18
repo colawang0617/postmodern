@@ -1,6 +1,7 @@
 import mysql.connector
 import os
 import random
+from OrderData import OrderData
 
 
 class PasswordMatcher:
@@ -76,7 +77,12 @@ class PasswordMatcher:
             """.format(self.__generate_unique_password(), order_item, self.__BOX_ID))
         self.connection.commit()
 
-    def list_items(self):
-        result = self.__execute_query("SELECT * FROM Passwords")
-        print(result)
+    def get_order_info(self, password):
+        result = self.__execute_query(query="""
+            SELECT * FROM Passwords
+            WHERE Box_id = "{}" AND Pincode = "{}" 
+            """.format(self.__BOX_ID, password))
+        if not result:
+            return None
+        return OrderData(result[0], result[1], result[2], result[3])
 

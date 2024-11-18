@@ -6,21 +6,16 @@ reader = KeypadReader()
 matcher = PasswordMatcher()
 operator = LockOperator()
 
+print(matcher.get_order_info("##101"))
+print(matcher.get_order_info("25252"))
+print(matcher.get_order_info("3064D"))
+print(matcher.get_order_info("B1198"))
+
+"""
 current_password = ""
 maxlen = matcher.PASSWORD_LENGTH
 status = False
 
-
-def printPassword(password, current_len):
-    for i in range(current_len):
-        print(password[i], end="")
-    print()
-
-
-matcher.add_new_order("phone charger")
-matcher.list_items()
-
-"""
 while not status:
     if not ((n := reader.read()) is None):
         current_password += n
