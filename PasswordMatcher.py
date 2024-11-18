@@ -1,5 +1,6 @@
 import mysql.connector
 import os
+import random
 
 
 class PasswordMatcher:
@@ -9,9 +10,9 @@ class PasswordMatcher:
     __DATABASE = os.environ.get("DATABASE_NAME")
     __BOX_ID = os.environ.get("BOX_ID")
 
-    connection = None
-
+    __KEYPAD_CHARACTERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D']
     PASSWORD_LENGTH = 5
+    connection = None
 
     def __init__(self):
         self.connection = self.__establish_connection()
@@ -25,26 +26,31 @@ class PasswordMatcher:
             print(f"Error: {err}")
             return None
 
-    def is_owner_password(self, password):
-        result = False
-        cursor = None
+    def __execute_query(self, query):
+        result = None
+        cursor = self.connection.cursor()
         try:
-            cursor = self.connection.cursor()
-            query = """
-            SELECT Owner_passcode
-            FROM Mailboxes
-            WHERE Box_id = {}
-            """.format(self.__BOX_ID)
-
             cursor.execute(query)
-            results = cursor.fetchone()
-
-            if results is not None:
-                result = results[0] == password
-
+            result = cursor.fetchall()
         except mysql.connector.Error as err:
             print(f"Query Error: {err}")
         finally:
             if cursor:
                 cursor.close()
             return result
+
+    def is_owner_password(self, password):
+        result = self.__execute_query(query="""
+            SELECT Owner_passcode
+            FROM Mailboxes
+            WHERE (Box_id = {} AND Pincode = {}) 
+            """.format(self.__BOX_ID, password))
+
+        return result is not None
+
+    def __generate_password(self):
+        password = ''
+        for i in range(self.PASSWORD_LENGTH):
+            next_symbol_idx = random.randint(0, len(self.__KEYPAD_CHARACTERS))
+            password += self.__KEYPAD_CHARACTERS[next_symbol_idx]
+        return password

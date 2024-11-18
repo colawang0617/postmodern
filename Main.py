@@ -19,8 +19,8 @@ def printPassword(password, current_len):
 
 while not status:
     if not ((n := reader.read()) is None):
-        if operator.is_lock_open(): print("the lock is open")
-        else: print("the lock is closed")
+        #if operator.is_lock_open(): print("the lock is open")
+        #else: print("the lock is closed")
 
         current_password += n
         print(current_password)
@@ -28,10 +28,7 @@ while not status:
             if matcher.is_owner_password(current_password):
                 status = True
                 print('The password is correct!')
-                operator.unlock_door()
-
-                if operator.is_lock_open(): print("the lock is open")
-                else: print("the lock is closed")
+                #operator.unlock_door()
             else:
                 print('Wrong password')
                 current_password = ""

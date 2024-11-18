@@ -4,7 +4,6 @@ import os
 
 
 class PasswordMatcher:
-
     __HOST = os.environ.get("DATA_HOST")
     __USER = os.environ.get("DATABASE_USER_NAME")
     __PASSWORD = os.environ.get("DATABASE_PASSWORD")
@@ -26,7 +25,7 @@ class PasswordMatcher:
         except mysql.connector.Error as err:
             print(f"Error: {err}")
             return None
-    
+
     def is_owner_password(self, password):
         result = False
         cursor = None
@@ -50,29 +49,17 @@ class PasswordMatcher:
             if cursor:
                 cursor.close()
             return result
-        
-    def generate_password(self):
-        cursor = self.connection.cursor()
-        arr = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D']
-        password = []
-        cnt=0
-        while(cnt<5):
-            i = random.randint(0,13)
-            password[cnt]=arr[i]
-            cnt+=1
-        cursor.close()
-        return password
 
-    def init_order_information(self,password,order_item,box_id):
+    def init_order_information(self, password, order_item, box_id):
         cursor = self.connection.cursor()
         query = """
         INSERT INTO Passwords
         Values(password,order_item,True,box_id);
-        """.format(self.__BOX_ID) 
+        """.format(self.__BOX_ID)
         cursor.execute(query)
         cursor.close()
 
-    def is_unique(self,password):
+    def is_unique(self, password):
         cursor = self.connection.cursor()
         query = """
         SELECT Pincode
@@ -81,12 +68,12 @@ class PasswordMatcher:
         """.format(self.__BOX_ID)
         cursor.execute(query)
         results = cursor.fetchone
-        if(results == None):
+        if (results == None):
             return True
         else:
             return False
-    
-    def paired_order(self,password):
+
+    def paired_order(self, password):
         cursor = self.connection.cursor()
         query = """
         SELECT * FROM Passwords
@@ -94,6 +81,8 @@ class PasswordMatcher:
         """.format(self.__BOX_ID)
 
         cursor.execute(query)
+
         class result():
             result = cursor.fetchall
+
         return result
