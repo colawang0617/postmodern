@@ -72,8 +72,9 @@ class PasswordMatcher:
     def add_new_order(self, order_item):
         self.__execute_query(query="""
             INSERT INTO Passwords
-            Values("{}", "{}", True, "{}");
+            Values("{}", "{}", False, "{}");
             """.format(self.__generate_unique_password(), order_item, self.__BOX_ID))
+        self.connection.commit()
 
     def list_items(self):
         result = self.__execute_query("SELECT * FROM Passwords")
