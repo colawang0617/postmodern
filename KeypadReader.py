@@ -1,4 +1,6 @@
 import importlib
+from num2words import num2words
+from subprocess import call
 from time import sleep
 
 try:
@@ -7,6 +9,8 @@ try:
 except ImportError:
     import FakeRPi.GPIO as GPIO
 
+cmd_beg= 'espeak '
+cmd_end= ' 2>/dev/null'
 
 class KeypadReader:
     __key_pressed = None
@@ -60,6 +64,8 @@ class KeypadReader:
             for i in range(len(self.__COL_PINS)):
                 if not ((ans := self.__readInput(self.__COL_PINS[i], self.__KEYPAD_MAP[i])) is None):
                     sleep(0.1)
+                    #cmd = num2swords(ans)
+                    #call([cmd_beg+cmd+cmd_end], shell=True)
                     return ans
         else:
             if not (self.__is_anything_pressed()):
