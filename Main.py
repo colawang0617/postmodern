@@ -17,14 +17,19 @@ cmd_end= ' 2>/dev/null'
 
 while not status:
     if not ((n := reader.read()) is None):
-        call([cmd_beg+n+cmd_end], shell=True)
+        if n=='#':
+            call([cmd_beg+"Hash"+cmd_end], shell=True)
+        elif n!='*':
+            call([cmd_beg+"Star"+cmd_end], shell=True)
+        else:
+            call([cmd_beg+n+cmd_end], shell=True)
         current_password += n
         print(current_password)
         if len(current_password) == maxlen:
             if matcher.is_owner_password(current_password):
                 status = True
                 print('The password is correct!')
-                cmd = 'The password is correct!'
+                cmd = "The password is correct!"
                 call([cmd_beg+cmd+cmd_end], shell=True)
                 # operator.unlock_door()
             elif (order_data := matcher.get_order_info(current_password)) is not None:
@@ -33,4 +38,6 @@ while not status:
                 current_password = ""
             else:
                 print('Wrong password')
+                cmd = "Wrong password"    
+                call([cmd_beg+cmd+cmd_end], shell=True)            
                 current_password = ""
