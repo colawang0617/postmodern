@@ -60,10 +60,8 @@ class KeypadReader:
         if self.__key_pressed is None:
             for i in range(len(self.__COL_PINS)):
                 if not ((ans := self.__readInput(self.__COL_PINS[i], self.__KEYPAD_MAP[i])) is None):
-                    sleep(0.1)
                     return ans
         else:
             if not (self.__is_anything_pressed()):
-                sleep(0.1)
                 self.__depress_key()
             return None
