@@ -1,5 +1,5 @@
 import importlib
-from time import sleep
+import time
 
 try:
     importlib.util.find_spec('RPi.GPIO')
@@ -27,8 +27,16 @@ class LockOperator:
 
     def unlock_door(self):
         GPIO.output(self.__LOCK_PIN, GPIO.HIGH)
-        sleep(0.1)
+        time.sleep(0.1)
         GPIO.output(self.__LOCK_PIN, GPIO.LOW)
+        self.open_time = time.time()
 
     def is_lock_open(self):
         return GPIO.input(self.__LOCK_CHECK_IN) != self.LOW
+    
+    def time_warnning(self):
+        close_time = time.time()
+        if self.open_time is None:
+            return False
+        duration = close_time - self.open_time
+        return duration >= 60
