@@ -1,37 +1,27 @@
-from num2words import num2words
-from subprocess import call
 from KeypadReader import KeypadReader
 from PasswordMatcher import PasswordMatcher
 from LockOperator import LockOperator
+from SoundPlayer import SoundPlayer
 
 reader = KeypadReader()
 matcher = PasswordMatcher()
 operator = LockOperator()
+sound_player = SoundPlayer()
 
 current_password = ""
 maxlen = matcher.PASSWORD_LENGTH
 status = False
 
-cmd_beg= 'espeak '
-cmd_end= ' | aplay /home/pi/Desktop/Text.wav  2>/dev/null' # To play back the stored .wav file and to dump the std errors to /dev/null
-cmd_out= '--stdout > /home/pi/Desktop/Text.wav ' # To store the voice file
-
 while not status:
-    if not ((n := reader.read()) is None):
-        if n=='#':
-            call([cmd_beg+"Hash"+cmd_end], shell=True)
-        elif n=='*':
-            call([cmd_beg+"Star"+cmd_end], shell=True)
-        else:
-            call([cmd_beg+n+cmd_end], shell=True)
-        current_password += n
+    if not ((key := reader.read()) is None):
+        sound_player.say_pressed_key(key)
+        current_password += key
         print(current_password)
         if len(current_password) == maxlen:
             if matcher.is_owner_password(current_password):
                 status = True
                 print('The password is correct!')
-                cmd = "CorrectPassword"
-                call([cmd_beg+cmd+cmd_end], shell=True)
+                sound_player.say_correct_password()
                 # operator.unlock_door()
             elif (order_data := matcher.get_order_info(current_password)) is not None:
                 print('an order password is entered for: ')
@@ -39,6 +29,5 @@ while not status:
                 current_password = ""
             else:
                 print('Wrong password')
-                cmd = "WrongPassword"    
-                call([cmd_beg+cmd+cmd_end], shell=True)            
+                sound_player.say_wrong_password()
                 current_password = ""
