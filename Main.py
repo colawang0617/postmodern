@@ -30,7 +30,7 @@ while not status:
             if matcher.is_owner_password(current_password):
                 status = True
                 print('The password is correct!')
-                cmd = "Correct Password"
+                cmd = "CorrectPassword"
                 call([cmd_beg+cmd+cmd_end], shell=True)
                 # operator.unlock_door()
             elif (order_data := matcher.get_order_info(current_password)) is not None:
@@ -39,6 +39,6 @@ while not status:
                 current_password = ""
             else:
                 print('Wrong password')
-                cmd = "Wrong password"    
+                cmd = "WrongPassword"    
                 call([cmd_beg+cmd+cmd_end], shell=True)            
                 current_password = ""
