@@ -13,13 +13,14 @@ maxlen = matcher.PASSWORD_LENGTH
 status = False
 
 cmd_beg= 'espeak '
-cmd_end= ' 2>/dev/null'
+cmd_end= ' | aplay /home/pi/Desktop/Text.wav  2>/dev/null' # To play back the stored .wav file and to dump the std errors to /dev/null
+cmd_out= '--stdout > /home/pi/Desktop/Text.wav ' # To store the voice file
 
 while not status:
     if not ((n := reader.read()) is None):
         if n=='#':
             call([cmd_beg+"Hash"+cmd_end], shell=True)
-        elif n!='*':
+        elif n=='*':
             call([cmd_beg+"Star"+cmd_end], shell=True)
         else:
             call([cmd_beg+n+cmd_end], shell=True)
@@ -29,7 +30,7 @@ while not status:
             if matcher.is_owner_password(current_password):
                 status = True
                 print('The password is correct!')
-                cmd = "The password is correct!"
+                cmd = "Correct Password"
                 call([cmd_beg+cmd+cmd_end], shell=True)
                 # operator.unlock_door()
             elif (order_data := matcher.get_order_info(current_password)) is not None:
