@@ -1,4 +1,6 @@
 from subprocess import call
+import pyttsx3
+
 
 
 class SoundPlayer:
@@ -7,15 +9,22 @@ class SoundPlayer:
     __CMD_OUT = '--stdout > /home/pi/Desktop/Text.wav '  # To store the voice file
     __CORRECT_PASSWORD = None
     __WRONG_PASSWORD = None
+    engine = pyttsx3.init()
 
+    
     def __init__(self):
         self.__CORRECT_PASSWORD = "CorrectPassword"
         self.__WRONG_PASSWORD = "WrongPassword"
 
     def __say_word(self, word):
         call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
+        self.engine.say(word)
+        self.engine.runAndWait()
+
 
     def say_pressed_key(self, key):
+        self.engine.stop()
+
         if key == '#':
             self.__say_word("Hash")
         elif key == '*':

@@ -3,6 +3,8 @@ from PasswordMatcher import PasswordMatcher
 from LockOperator import LockOperator
 from SoundPlayer import SoundPlayer
 
+
+
 reader = KeypadReader()
 matcher = PasswordMatcher()
 operator = LockOperator()
