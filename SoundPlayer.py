@@ -13,8 +13,8 @@ class SoundPlayer:
 
     
     def __init__(self):
-        self.__CORRECT_PASSWORD = "Correct Password"
-        self.__WRONG_PASSWORD = "Wrong Password"
+        self.__CORRECT_PASSWORD = "CorrectPassword"
+        self.__WRONG_PASSWORD = "WrongPassword"
 
     def __say_word(self, word):
         call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
@@ -23,6 +23,8 @@ class SoundPlayer:
 
 
     def say_pressed_key(self, key):
+        self.engine.stop()
+
         if key == '#':
             self.__say_word("Hash")
         elif key == '*':
