@@ -19,7 +19,6 @@ class SoundPlayer:
     def __say_word(self, word):
         call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
         self.engine.say(word)
-        self.engine.say("Hi My name is Jeff")
         self.engine.runAndWait()
 
 
