@@ -22,7 +22,9 @@ class SoundPlayer:
     def __say_word(self, word):
         #call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
         self.engine.say(word)
+        self.engine.say("Jeff")
         self.engine.runAndWait()
+        
 
 
     def say_pressed_key(self, key):
