@@ -10,7 +10,9 @@ class SoundPlayer:
     __CORRECT_PASSWORD = None
     __WRONG_PASSWORD = None
     engine = pyttsx3.init()
-
+    engine.say("Hi my name is jeff")
+    engine.say("No my name is not jeff")
+    engine.runAndWait()
 
 
     
