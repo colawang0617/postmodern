@@ -10,21 +10,23 @@ class SoundPlayer:
     __CORRECT_PASSWORD = None
     __WRONG_PASSWORD = None
     engine = pyttsx3.init()
+    #isSpeaking = True
 
     
     def __init__(self):
         self.__CORRECT_PASSWORD = "CorrectPassword"
         self.__WRONG_PASSWORD = "WrongPassword"
 
+    #def __stop_word(self):
+
     def __say_word(self, word):
-        call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
+        #call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
         self.engine.say(word)
         self.engine.runAndWait()
 
 
     def say_pressed_key(self, key):
         self.engine.stop()
-
         if key == '#':
             self.__say_word("Hash")
         elif key == '*':
