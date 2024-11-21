@@ -9,12 +9,11 @@ class SoundPlayer:
     __CMD_OUT = '--stdout > /home/pi/Desktop/Text.wav '  # To store the voice file
     __CORRECT_PASSWORD = None
     __WRONG_PASSWORD = None
-    engine = None
+    engine = pyttsx3.init()
 
     def __init__(self):
         self.__CORRECT_PASSWORD = "Correct Password"
         self.__WRONG_PASSWORD = "Wrong Password"
-        self.engine = pyttsx3.init()
 
     def __say_word(self, word):
         #call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
