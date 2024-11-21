@@ -16,7 +16,7 @@ class SoundPlayer:
         self.__WRONG_PASSWORD = "Wrong Password"
 
     def __say_word(self, word):
-        #call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
+        call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
         self.engine.say(word)
 
 
