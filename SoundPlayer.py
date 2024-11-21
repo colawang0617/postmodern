@@ -24,6 +24,7 @@ class SoundPlayer:
         self.engine.say(word)
         self.engine.say("Jeff")
         volume = self.engine.getProperty('volume')
+        print(volume)
         self.engine.runAndWait()
         
 
