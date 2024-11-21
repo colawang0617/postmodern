@@ -22,7 +22,7 @@ class SoundPlayer:
     def __say_word(self, word):
         #call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
         self.engine.say(word)
-        self.engine.say("Jeff")
+        #self.engine.say("Jeff")
         volume = self.engine.getProperty('volume')
         print(volume)
         self.engine.runAndWait()
@@ -30,7 +30,6 @@ class SoundPlayer:
 
 
     def say_pressed_key(self, key):
-        self.engine.stop()
         if key == '#':
             self.__say_word("Hash")
         elif key == '*':
