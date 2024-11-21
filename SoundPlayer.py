@@ -23,7 +23,7 @@ class SoundPlayer:
     def __say_word(self, word):
         #call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
         engine = pyttsx3.init()
-        engine.say(word)
+        engine.say("one")
         engine.runAndWait()
 
         #self.engine.say("Jeff")
