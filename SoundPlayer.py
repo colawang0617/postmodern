@@ -29,6 +29,7 @@ class SoundPlayer:
         #self.engine.say("Jeff")
         volume = engine.getProperty('volume')
         print(volume)
+        self.delay(3)
         
 
 
