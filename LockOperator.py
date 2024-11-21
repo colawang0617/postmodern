@@ -42,3 +42,10 @@ class LockOperator:
             return False
         duration = close_time - self.__open_time
         return duration >= self.__ALLOWED_OPEN_TIME
+
+    def reset_open_time(self):
+        self.__open_time = None
+
+    def update_open_time(self):
+        if not self.is_lock_open():
+            self.reset_open_time()
