@@ -11,6 +11,8 @@ class SoundPlayer:
     __WRONG_PASSWORD = None
     engine = pyttsx3.init()
     engine.say("Please work i beg")
+    engine.runAndWait()
+
     #isSpeaking = True
 
     
