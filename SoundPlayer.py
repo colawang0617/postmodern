@@ -10,13 +10,8 @@ class SoundPlayer:
     __CORRECT_PASSWORD = None
     __WRONG_PASSWORD = None
     engine = pyttsx3.init()
-    engine.say("Hi My name is Jeff")
-    engine.runAndWait()
 
-    volume = engine.getProperty('volume')
-    print(volume)
     
-
     def __init__(self):
         self.__CORRECT_PASSWORD = "Correct Password"
         self.__WRONG_PASSWORD = "Wrong Password"
@@ -24,6 +19,8 @@ class SoundPlayer:
     def __say_word(self, word):
         call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
         self.engine.say(word)
+        self.engine.say("Hi My name is Jeff")
+        self.engine.runAndWait()
 
 
     def say_pressed_key(self, key):
