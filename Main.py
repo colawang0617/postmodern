@@ -11,6 +11,8 @@ maxlen = matcher.PASSWORD_LENGTH
 status = False
 
 while not status:
+    if operator.is_open_too_long():
+        print('The lock has been open for too long')
     if not ((n := reader.read()) is None):
         current_password += n
         print(current_password)
