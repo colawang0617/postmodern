@@ -9,10 +9,8 @@ class SoundPlayer:
     __CMD_OUT = '--stdout > /home/pi/Desktop/Text.wav '  # To store the voice file
     __CORRECT_PASSWORD = None
     __WRONG_PASSWORD = None
-    engine = pyttsx3.init()
-    engine.say("Hi my name is jeff")
-    engine.say("No my name is not jeff")
-    engine.runAndWait()
+    
+
 
 
     
@@ -24,12 +22,14 @@ class SoundPlayer:
 
     def __say_word(self, word):
         #call([self.__CMD_BEG + word + self.__CMD_END], shell=True)
-        self.engine.say(word)
-        self.engine.runAndWait()
+        engine = pyttsx3.init()
+        engine.say(word)
+        engine.runAndWait()
 
         #self.engine.say("Jeff")
         volume = self.engine.getProperty('volume')
         print(volume)
+        engine.stop()
         
 
 
