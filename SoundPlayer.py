@@ -27,7 +27,7 @@ class SoundPlayer:
         engine.runAndWait()
 
         #self.engine.say("Jeff")
-        volume = self.engine.getProperty('volume')
+        volume = engine.getProperty('volume')
         print(volume)
         engine.stop()
         
