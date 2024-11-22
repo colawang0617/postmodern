@@ -1,7 +1,5 @@
 import importlib
 
-from time import sleep
-
 try:
     importlib.util.find_spec('RPi.GPIO')
     import RPi.GPIO as GPIO

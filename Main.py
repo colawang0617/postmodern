@@ -2,6 +2,7 @@ from src.hardware.KeypadReader import KeypadReader
 from src.database.PasswordMatcher import PasswordMatcher
 from src.hardware.LockOperator import LockOperator
 from src.hardware.SoundPlayer import SoundPlayer
+from time import sleep
 
 reader = KeypadReader()
 matcher = PasswordMatcher()
@@ -14,12 +15,10 @@ status = False
 
 while not status:
     if not ((key := reader.read()) is None):
-        sound_player.say_pressed_key(key)
         current_password += key
         print(current_password)
         if len(current_password) == maxlen:
             if matcher.is_owner_password(current_password):
-                status = True
                 print('The password is correct!')
                 sound_player.say_correct_password()
                 operator.unlock_door()
@@ -32,3 +31,6 @@ while not status:
                 print('Wrong password')
                 sound_player.say_wrong_password()
                 current_password = ""
+        else:
+            sound_player.say_pressed_key(key)
+        sleep(0.1)
