@@ -1,7 +1,7 @@
 import mysql.connector
 import os
 import random
-from OrderData import OrderData
+from src.database.OrderData import OrderData
 
 
 class PasswordMatcher:
