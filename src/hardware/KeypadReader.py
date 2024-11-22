@@ -38,7 +38,7 @@ class KeypadReader:
         for col in self.__COL_PINS:
             GPIO.output(col, status)
 
-    def __readInput(self, column, char_map):
+    def __read_input(self, column, char_map):
         GPIO.output(column, GPIO.LOW)
         for i in range(len(self.__ROW_PINS)):
             if GPIO.input(self.__ROW_PINS[i]) == self.LOW:
@@ -59,7 +59,7 @@ class KeypadReader:
     def read(self):
         if self.__key_pressed is None:
             for i in range(len(self.__COL_PINS)):
-                if not ((ans := self.__readInput(self.__COL_PINS[i], self.__KEYPAD_MAP[i])) is None):
+                if not ((ans := self.__read_input(self.__COL_PINS[i], self.__KEYPAD_MAP[i])) is None):
                     return ans
         else:
             if not (self.__is_anything_pressed()):
