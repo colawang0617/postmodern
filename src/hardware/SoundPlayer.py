@@ -25,7 +25,7 @@ class SoundPlayer:
         return pygame.mixer.Sound(os.path.join(self.__DEF_PATH, *args))
 
     def __init_sound_map(self):
-        for key, filename in self.__KEY_TO_FILENAME:
+        for key, filename in self.__KEY_TO_FILENAME.items():
             self.__input_sound_map[key] = self.__get_sound_at("inputs", filename)
 
     def __play_sound(self, sound):
