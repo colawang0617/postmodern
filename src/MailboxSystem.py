@@ -48,4 +48,4 @@ class MailboxSystem:
                     self.__password_matching_action()
                 else:
                     self.__sound_player.say_pressed_key(key)
-                sleep(0.1)
+                sleep(0.2)
