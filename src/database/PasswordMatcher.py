@@ -86,3 +86,9 @@ class PasswordMatcher:
             return None
         return OrderData(result[0][0], result[0][1], result[0][2], result[0][3])
 
+    def return_email(self):
+        result = self.__execute_query(query="""
+            SELECT User_email FROM Mailboxes
+            WHERE Box_id = "{}" 
+            """.format(self.__BOX_ID))
+        return result[0]

@@ -3,14 +3,14 @@ from src.database.PasswordMatcher import PasswordMatcher
 from src.hardware.LockOperator import LockOperator
 from src.hardware.SoundPlayer import SoundPlayer
 from time import sleep
-
+from src.EmailSystem import EmailSender
 
 class MailboxSystem:
     __reader = KeypadReader()
     __matcher = PasswordMatcher()
     __operator = LockOperator()
     __sound_player = SoundPlayer()
-
+    __mailer = EmailSender()
     __current_password = ""
     __password_length = __matcher.PASSWORD_LENGTH
 
@@ -22,6 +22,7 @@ class MailboxSystem:
         if self.__operator.is_open_too_long():
             print("The lock has been left open for too long")
             # send email to the user
+            self.__mailer.__too_long_email("email.com")
             self.__sound_player.say_open_box_warning()
             self.__operator.reset_open_time()
 
@@ -33,6 +34,7 @@ class MailboxSystem:
             print(order_data.order_item)
             self.__sound_player.say_correct_password()
             # send email to the user
+            self.__mailer.__item_arrival_email("email.com")
             self.__operator.unlock_door()
         else:
             self.__sound_player.say_wrong_password()
