@@ -87,6 +87,7 @@ class PasswordMatcher:
             SET Open_status = True
             WHERE Box_id = "{}" AND Pincode = "{}"
             """.format(self.__BOX_ID, password))
+        self.connection.commit()
         if not result:
             return None
         return OrderData(result[0][0], result[0][1], result[0][2], result[0][3])
