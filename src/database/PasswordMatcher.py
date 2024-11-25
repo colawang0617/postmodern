@@ -80,7 +80,12 @@ class PasswordMatcher:
     def get_order_info(self, password):
         result = self.__execute_query(query="""
             SELECT * FROM Passwords
-            WHERE Box_id = "{}" AND Pincode = "{}" 
+            WHERE Box_id = "{}" AND Pincode = "{}" AND Open_status = False 
+            """.format(self.__BOX_ID, password))
+        self.__execute_query(query="""
+            UPDATE Passwords
+            SET Open_status = True
+            WHERE Box_id = "{}" AND Pincode = "{}"
             """.format(self.__BOX_ID, password))
         if not result:
             return None
