@@ -11,6 +11,7 @@ class SoundPlayer:
     __box_open_sound = None
     __wrong_password_sound = None
     __box_open_warning = None
+    __ready_to_use_sound = None
     __DEF_PATH = os.path.join("assets", "audio")
     __sound_playing = None
 
@@ -20,6 +21,7 @@ class SoundPlayer:
         self.__box_open_sound = self.__get_sound_at("feedback", "unlocked.wav")
         self.__wrong_password_sound = self.__get_sound_at("feedback", "wrong_password.wav")
         self.__box_open_warning = self.__get_sound_at("feedback", "close_mailbox.wav")
+        self.__ready_to_use_sound = self.__get_sound_at("feedback", "ready_to_use.wav")
 
     def __get_sound_at(self, *args):
         return pygame.mixer.Sound(os.path.join(self.__DEF_PATH, *args))
@@ -45,3 +47,6 @@ class SoundPlayer:
 
     def say_open_box_warning(self):
         self.__play_sound(self.__box_open_warning)
+
+    def play_ready_to_use(self):
+        self.__play_sound(self.__ready_to_use_sound)

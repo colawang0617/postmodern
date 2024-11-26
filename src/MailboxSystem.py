@@ -40,6 +40,7 @@ class MailboxSystem:
         self.__current_password = ""
 
     def run_program(self):
+        self.__sound_player.play_ready_to_use()
         while True:
             self.__open_time_check_action()
             if (not self.__operator.is_lock_open()) and (not ((key := self.__reader.read()) is None)):
