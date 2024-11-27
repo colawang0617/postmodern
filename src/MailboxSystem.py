@@ -21,20 +21,18 @@ class MailboxSystem:
     def __open_time_check_action(self):
         self.__operator.update_open_time()
         if self.__operator.is_open_too_long():
-            print("The lock has been left open for too long")
             self.__mailer.open_time_warning()
             self.__sound_player.say_open_box_warning()
             self.__operator.reset_open_time()
 
     def __password_matching_action(self):
         if self.__matcher.is_owner_password(self.__current_password):
-            self.__sound_player.say_correct_password()
             self.__operator.unlock_door()
+            self.__sound_player.say_correct_password()
         elif (order_data := self.__matcher.get_order_info(self.__current_password)) is not None:
-            print(order_data.order_item)
+            self.__operator.unlock_door()
             self.__sound_player.say_correct_password()
             self.__mailer.item_arrival_email(order_data)
-            self.__operator.unlock_door()
         else:
             self.__sound_player.say_wrong_password()
         self.__current_password = ""
@@ -45,7 +43,6 @@ class MailboxSystem:
             self.__open_time_check_action()
             if (not self.__operator.is_lock_open()) and (not ((key := self.__reader.read()) is None)):
                 self.__current_password += key
-                print(self.__current_password)
                 if self.__is_password_entered():
                     self.__password_matching_action()
                 else:
