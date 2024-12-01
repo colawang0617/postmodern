@@ -29,6 +29,7 @@ class MailboxSystem:
         if self.__matcher.is_owner_password(self.__current_password):
             self.__operator.unlock_door()
             self.__sound_player.say_correct_password()
+            self.__mailer.owner_open_the_box()
         elif (order_data := self.__matcher.get_order_info(self.__current_password)) is not None:
             self.__operator.unlock_door()
             self.__sound_player.say_correct_password()

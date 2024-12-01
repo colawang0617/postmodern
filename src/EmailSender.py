@@ -31,3 +31,7 @@ class EmailSender:
         body = """ The following item has been delivered to your mailbox: {}
             """.format(item_arrived.order_item)
         self.__send_email('Please check your mailbox', body)
+
+    def owner_open_the_box(self):
+        body = 'If you are not aware of this happening, please change your password.'
+        self.__send_email('The mailbox was opened using your password', body)
