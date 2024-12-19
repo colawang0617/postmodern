@@ -12,7 +12,7 @@ Post-Modern is a secure, 3D-printed mailbox equipped with a keypad, designed to 
 * Haotai Wang
 
 ## Project Setup
-![](../../../../../../Desktop/2024-12-19 09.41.54.jpg)
+![](media/ProjectPhoto.jpg)
 
 ## Technologies Used
 * Software
@@ -30,4 +30,4 @@ Post-Modern is a secure, 3D-printed mailbox equipped with a keypad, designed to 
   * 3D printed mailbox body
 
 ## Project Schematic
-![](../../../../../../Desktop/Untitled Diagram.png)
+![](media/ProjectDiagram.png)
