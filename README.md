@@ -27,7 +27,8 @@ Post-Modern is a secure, 3D-printed mailbox equipped with a keypad, designed to 
   * 12V electric solenoid lock
   * 4x4 matrix keypad
   * Portable computer speaker
-  * 3D printed mailbox body
+  * 3D-printed mailbox body
+  * 5V relay module
 
 ## Project Schematic
 ![](media/ProjectDiagram.png)
