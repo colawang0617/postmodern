@@ -2,9 +2,10 @@ import importlib
 
 try:
     importlib.util.find_spec('RPi.GPIO')
+    # Using RPi.GPIO, licensed under the MIT License
     import RPi.GPIO as GPIO
 except ImportError:
-    import FakeRPi.GPIO as GPIO
+    print("Failed to load library")
 
 
 class KeypadReader:
