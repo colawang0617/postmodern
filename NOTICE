@@ -1,0 +1,10 @@
+## NOTICE
+
+This project includes third-party components under the MIT License. Below is a list of these components:
+
+1. RPi.GPIO
+   - Author: Ben Croston
+   - License: MIT
+   - Source: https://pypi.org/project/RPi.GPIO/
+
+All MIT-licensed components retain their original license terms. For the full text of the MIT License, see `LICENSES/MIT-LICENSE.txt`.
