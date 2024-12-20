@@ -23,7 +23,7 @@ Post-Modern is a secure, 3D-printed mailbox equipped with a keypad, designed to 
   * mysql.connector python library to work with a database
   * smtplib python library to send automated emails
 * Hardware
-  * Raspberry Pi 4 Model B
+  * Raspberry Pi 3 Model B+
   * 12V electric solenoid lock
   * 4x4 matrix keypad
   * Portable computer speaker
